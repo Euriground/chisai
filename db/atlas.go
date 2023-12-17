@@ -1,9 +1,11 @@
 package db
 
 import (
+    "fmt"
     "context"
     "go.mongodb.org/mongo-driver/mongo"
     "go.mongodb.org/mongo-driver/mongo/options"
+    "github.com/mr-amirfazel/chisai/config"
     "log"
     "time"
 )
@@ -11,7 +13,13 @@ import (
 var client *mongo.Client
 
 func ConnectDB() error {
-    clientOptions := options.Client().ApplyURI("mongodb+srv://amirfazel45:Chisai@sample-cluster.087lnjs.mongodb.net/?retryWrites=true&w=majority")
+    conf, e := config.LoadConfig()
+	if e != nil {
+        fmt.Println("Error loading config: %s\n", e)
+        return e
+    }
+
+    clientOptions := options.Client().ApplyURI(conf.Database.ConnectionString)
     ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
     defer cancel()
 

@@ -1,13 +1,22 @@
 package main
 
 import (
-	"github.com/labstack/echo/v4"
-	"github.com/mr-amirfazel/chisai/handlers"
-	"github.com/mr-amirfazel/chisai/db"
+	"fmt"
+	"strconv"
 
+	"github.com/labstack/echo/v4"
+	"github.com/mr-amirfazel/chisai/db"
+	"github.com/mr-amirfazel/chisai/handlers"
+	"github.com/mr-amirfazel/chisai/config"
 )
 
 func main() {
+
+	config, er := config.LoadConfig()
+	if er != nil {
+        fmt.Println("Error loading config: %s\n", er)
+        return
+    }
 
 	e := echo.New()
 
@@ -22,5 +31,5 @@ func main() {
     e.GET("/:shortURL", handlers.RedirectToLongURL)
 
     // Start server
-    e.Logger.Fatal(e.Start(":8080"))
+    e.Logger.Fatal(e.Start(":" + strconv.Itoa(config.Server.Port)))
 }
