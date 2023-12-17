@@ -4,13 +4,14 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/mr-amirfazel/chisai/db"
 	"github.com/mr-amirfazel/chisai/models"
+	"github.com/mr-amirfazel/chisai/utils"
 	"net/http"
 	"go.mongodb.org/mongo-driver/bson"
     "go.mongodb.org/mongo-driver/mongo"
 	"context"
 )
 
-func shorten_url(c echo.Context) error{
+func Shorten_url(c echo.Context) error{
 	db := db.GetDBInstance()
 	url_collection := db.Database("chisai").Collection("URL")
 
@@ -19,10 +20,9 @@ func shorten_url(c echo.Context) error{
 	if err := c.Bind(&url); err != nil {
         return c.JSON(http.StatusBadRequest, map[string]string{"error": "Invalid request body"})
     }
-    // Generate short URL logic here
-    shortURL := generateShortURL(url.LongURL)
+    shortURL := utils.GenerateShortURL(url.LongURL)
 
-    // Insert URL into MongoDB
+    
     url.ShortURL = shortURL
     _, err := url_collection.InsertOne(context.Background(), url)
     if err != nil {
@@ -35,7 +35,7 @@ func shorten_url(c echo.Context) error{
 
 func RedirectToLongURL(c echo.Context) error {
     db := db.GetDBInstance()
-    url_collection := db.Database("chisai").Collection("URL") // Replace with your DB and collection names
+    url_collection := db.Database("chisai").Collection("URL") 
 
     shortURL := c.Param("shortURL")
 
@@ -51,9 +51,3 @@ func RedirectToLongURL(c echo.Context) error {
     return c.Redirect(http.StatusFound, url.LongURL)
 }
 
-func generateShortURL(longURL string) string {
-    // shortening logic
-
-    // This is a simplistic example using the first 5 characters of the long URL
-    return "shortened/" + longURL[:5]
-}
