@@ -3,7 +3,7 @@
       "port": 8080
     },
     "database": {
-      "connectionString": "mongodb+srv://amirfazel45:Chisai@sample-cluster.087lnjs.mongodb.net/?retryWrites=true&w=majority"
+      "connectionString": "mongodb://admin:password@localhost:27017"
     }
   }
   

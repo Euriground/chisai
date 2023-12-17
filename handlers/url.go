@@ -14,8 +14,7 @@ import (
 )
 
 func Shorten_url(c echo.Context) error{
-	db := db.GetDBInstance()
-	url_collection := db.Database("chisai").Collection("URL")
+	url_collection := db.GetCollection()
 
 
 	var url models.URL

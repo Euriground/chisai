@@ -10,7 +10,11 @@ import (
     "time"
 )
 
-var client *mongo.Client
+var (
+    client     *mongo.Client
+    database   *mongo.Database
+    collection *mongo.Collection
+)
 
 func ConnectDB() error {
     conf, e := config.LoadConfig()
@@ -37,9 +41,16 @@ func ConnectDB() error {
         return err
     }
 
+    database = client.Database("chisai")
+    collection = database.Collection("URL")
+
     return nil
 }
 
 func GetDBInstance() *mongo.Client {
     return client
+}
+
+func GetCollection() *mongo.Collection {
+    return collection
 }
