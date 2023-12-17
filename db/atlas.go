@@ -11,7 +11,7 @@ import (
 var client *mongo.Client
 
 func ConnectDB() error {
-    clientOptions := options.Client().ApplyURI("mongodb+srv://amirfazel45:<123>@sample-cluster.087lnjs.mongodb.net/?retryWrites=true&w=majority")
+    clientOptions := options.Client().ApplyURI("mongodb+srv://amirfazel45:Chisai@sample-cluster.087lnjs.mongodb.net/?retryWrites=true&w=majority")
     ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
     defer cancel()
 

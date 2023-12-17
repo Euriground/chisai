@@ -1,14 +1,16 @@
 package handlers
 
 import (
+	"context"
+	"fmt"
+	"net/http"
+
 	"github.com/labstack/echo/v4"
 	"github.com/mr-amirfazel/chisai/db"
 	"github.com/mr-amirfazel/chisai/models"
 	"github.com/mr-amirfazel/chisai/utils"
-	"net/http"
 	"go.mongodb.org/mongo-driver/bson"
-    "go.mongodb.org/mongo-driver/mongo"
-	"context"
+	"go.mongodb.org/mongo-driver/mongo"
 )
 
 func Shorten_url(c echo.Context) error{
@@ -20,6 +22,7 @@ func Shorten_url(c echo.Context) error{
 	if err := c.Bind(&url); err != nil {
         return c.JSON(http.StatusBadRequest, map[string]string{"error": "Invalid request body"})
     }
+    fmt.Println(url.LongURL)
     shortURL := utils.GenerateShortURL(url.LongURL)
 
     
