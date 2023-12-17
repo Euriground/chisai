@@ -3,7 +3,11 @@
       "port": 8080
     },
     "database": {
-      "connectionString": "mongodb://admin:password@localhost:27017"
+      "connectionString": "mongodb://%s:%s@%s:%s",
+      "user" : "admin",
+      "port" : "27017",
+      "host" : "mongodb",
+      "password" : "password"
     }
   }
   

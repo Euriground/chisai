@@ -12,6 +12,10 @@ type Config struct {
     } `json:"server"`
     Database struct {
         ConnectionString string `json:"connectionString"`
+        User string `json:"user"`
+        Port string `json:"port"`
+        Host string `json:"host"`
+        Password string `json:"password"`
     } `json:"database"`
 }
 
