@@ -3,6 +3,7 @@ module github.com/mr-amirfazel/chisai
 go 1.21.5
 
 require (
+	github.com/itchyny/base58-go v0.2.1
 	github.com/labstack/echo/v4 v4.11.3
 	go.mongodb.org/mongo-driver v1.13.1
 )
